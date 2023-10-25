@@ -11,10 +11,9 @@ Data is gathered from the bluetooth sensors and retrieved on the Pi, and display
 ![image info](./img/conductivity.png)
 ![image info](./img/battery.png)
 
-+## Hardware
-+- [Raspberry Pi (3+)](https://www.raspberrypi.com/products/)
-+
-+- [Xiaomi MiFlora / HHCC Flower Care devices (up to )](https://www.techpunt.nl/en/xiaomi-mi-flower-care-plant-sensor.html)
+## Hardware
+- [Raspberry Pi (3+)](https://www.raspberrypi.com/products/)
+- [Xiaomi MiFlora / HHCC Flower Care devices (up to )](https://www.techpunt.nl/en/xiaomi-mi-flower-care-plant-sensor.html)
 
 ## Setup the Pi
 1. Install fresh Raspberry Pi OS Lite (64-bit) to Raspberry PI SD card (Raspberry Pi Imager).
