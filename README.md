@@ -11,6 +11,11 @@ Data is gathered from the bluetooth sensors and retrieved on the Pi, and display
 ![image info](./img/conductivity.png)
 ![image info](./img/battery.png)
 
++## Hardware
++- [Raspberry Pi (3+)](https://www.raspberrypi.com/products/)
++
++- [Xiaomi MiFlora / HHCC Flower Care devices (up to )](https://www.techpunt.nl/en/xiaomi-mi-flower-care-plant-sensor.html)
+
 ## Setup the Pi
 1. Install fresh Raspberry Pi OS Lite (64-bit) to Raspberry PI SD card (Raspberry Pi Imager).
 2. Hint: To make the rest of these steps easier, click the gear icon in the imager, create a user and add your Wifi Network SSID and password, and SSH public key to the configuration so you can SSH into the Pi from your laptop/computer. Take note of your Pi's private IP address on your home network. (ex. 192.168.XX.YYY) You will need this for setting the IP address in the 'Extra Prometheus Step' section below.
