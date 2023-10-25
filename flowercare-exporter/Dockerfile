@@ -21,7 +21,7 @@ FROM --platform=linux/arm64 busybox
 LABEL maintainer="Robert Jacob <xperimental@solidproject.de>"
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=builder /build/flowercare-exporter /usr/bin/docker-flowercare-exporter
+COPY --from=builder /build/flowercare-exporter /usr/bin/flowercare-exporter
 
 USER nobody
 EXPOSE 9294
