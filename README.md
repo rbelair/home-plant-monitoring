@@ -105,7 +105,7 @@ Use this value for setting `GMAIL_APP_PASS` in `.env`.
 
 12. You're now ready to set your environment variables and launch the monitoring app! Run the app from within the `home-plant-monitoring` directory:
 ```
-docker-compose up [-d] # Run stack in the background (daemon)
+sudo docker-compose up [-d] # Run stack in the background (daemon)
 ```
 
 - View your Grafana dashboards at [http://raspi-private-ip-addr:3000]()
