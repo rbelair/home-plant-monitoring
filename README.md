@@ -1,4 +1,4 @@
-# home-farm-monitoring
+# home-plant-monitoring
 (Almost) One-click `docker-compose` full monitoring solution (Prometheus, Alertmanager, and Grafana) for monitoring plant health using https://github.com/xperimental/flowercare-exporter.git with a Raspberry Pi 3 with wifi + bluetooth. Wi-fi and Bluetooth **are** required for the `flowercare-exporter` service to function.
 
 This docker-compose.yml sets up a monitoring stack with Grafana, using Prometheus as a pre-provisioned datasource. The Prometheus stack is also created, along with Alertmanager, pre-configured with a list of rules for plants. You may use this file as a reference when creating your own rules file to create the corresponding alerts based on the flower exporter metrics.
@@ -28,14 +28,14 @@ sudo apt install docker.io
 ```
 4. Install docker-compose
 ```
-sudo apt-get install docker-compose
+sudo apt install docker-compose
 ```
 5. You will need a free account at https://hub.docker.com/ to pull containers if you have not already done so.
 6. `sudo docker login` and enter your dockerhub credentials. Verify that Login Succeeded.
 7. You will need a free account at https://github.com/ to pull repositories if you have not already done so. 
 8. Install GitHub CLI
 ```
-sudo apt-get install gh
+sudo apt install gh
 ```
 9. Authenticate with Github.
 ```
@@ -54,11 +54,11 @@ gh auth login
 Hit Enter.
 ```
 10. Copy the 8 digit code displayed in the console. If hitting 'Enter' fails to open a browser, copy and paste the link from your terminal into a web browser on your development machine (not the raspberry Pi), and enter the 8 digit code, and click Authenticate.
-11. Verify GH access is correct by pulling the home-farm-monitoring repo:
+11. Verify GH access is correct by pulling the home-plant-monitoring repo:
 ```
-gh repo clone rbelair/home-farm-monitoring
+gh repo clone rbelair/home-plant-monitoring
 
-Cloning into 'home-farm-monitoring'...
+Cloning into 'home-plant-monitoring'...
 The authenticity of host 'github.com (140.82.112.4)' can't be established.
 ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
 This key is not known by any other names.
@@ -74,9 +74,7 @@ Receiving objects: 100% (5/5), 12.89 KiB | 1.61 MiB/s, done.
 ## Set Environment Variables
 On the Raspberry Pi, set the following environment variables to your preferences. The recommended default values for some variables are entered below.
 
-**DO NOT COMMIT VALUES FOR ENV VARS TO THIS REPO**
-
-**Note**: From my experience, the default refresh duration for `flowercare-exporter` of 2m0s drains the battery of the device very quickly (100% -> 0% in less than 1 week). When setting a refresh duration of 20m0s, it places way less strain on the battery and prolongs the battery life.
+**[SECURITY] DO NOT COMMIT VALUES FOR ENV VARS TO THIS REPO. ONLY CHANGE VALUES OF .env LOCALLY ON THE RASPBERRY PI.**
 
 Scan for the bluetooth devices to obtain their mac addresses, and note them down. You will need them to set the `FLOWERCARE_SENSOR_LIST` environment variable. Replace `device_1|2` with device names of your choosing, and enter the MAC addresses for each device in the format below.
 
@@ -92,8 +90,10 @@ FLOWERCARE_SENSOR_LIST="-s device_1=C4:7C:8D:XX:XX:XX -s device_2=C4:7C:8D:XX:XX
 PROMETHEUS_PORT=9090
 ```
 
+**Tip**: From my experience, the default refresh duration for `flowercare-exporter` of 2m0s drains the battery of this particular device very quickly (100% -> 0% in less than 1 week). When setting a refresh duration of 20m0s, it places way less strain on the battery and prolongs the battery life.
+
 ## Extra Prometheus Step
-You have to set the private IP of the flowercare-exporter service for Prometheus to scrape. Unfortunately, the Prometheus config file doesn't allow environment variable expansion, so you have to set it directly in the code before running `docker-compose`.
+You have to set the private IP of the flowercare-exporter service for Prometheus to scrape. Unfortunately, the Prometheus config file doesn't allow environment variable expansion, so you have to set it manually in the config file on the Pi before running `docker-compose`.
 
 In `prometheus/prometheus.yml`, replace the value of `<raspi-private-ip-addr>` with the IP address of the raspberry pi on the network.
 
@@ -103,7 +103,7 @@ If you would like to set up email alerts via Gmail, you can do so easily by ente
 To create a Gmail App Password, see: https://support.google.com/mail/answer/185833?hl=en
 Use this value for setting `GMAIL_APP_PASS` in `.env`.
 
-12. You're now ready to set your environment variables and launch the monitoring app! Run the app from within the `home-farm-monitoring` directory:
+12. You're now ready to set your environment variables and launch the monitoring app! Run the app from within the `home-plant-monitoring` directory:
 ```
 docker-compose up [-d] # Run stack in the background (daemon)
 ```
