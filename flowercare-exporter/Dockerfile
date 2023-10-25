@@ -23,7 +23,7 @@ LABEL maintainer="Robert Jacob <xperimental@solidproject.de>"
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /build/flowercare-exporter /usr/bin/flowercare-exporter
 
-USER nobody
+USER root
 EXPOSE 9294
 
 ENTRYPOINT ["/usr/bin/flowercare-exporter"]
