@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:${PROMETHEUS_PORT}"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:${GRAFANA_PORT}"
+    restart: unless-stopped
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    restart: unless-stopped
+    ports:
+      - "9093:${ALERTMANAGER_PORT}"
+    volumes:
+      - "./alertmanager:/config"
+      - alertmanager-data:/data
+    environment:
+      GMAIL_USER: ${GMAIL_USER}
+      GMAIL_APP_PASS: ${GMAIL_APP_PASS}
+    command: --config.file=/config/alertmanager.yml --log.level=debug 
+
+  flowercare-exporter:
+    image: flowercare-exporter
+    build:
+      context: flowercare-exporter
+      dockerfile: Dockerfile
+    restart: unless-stopped 
+    command: --refresh-timeout=${FLOWERCARE_REFRESH_DURATION} --stale-duration=${FLOWERCARE_STALE_DURATION} ${FLOWERCARE_SENSOR_LIST}
+    network_mode: host
+    privileged: true
+
+volumes:
+  prometheus-data: {}
+  grafana-data: {}
+  alertmanager-data: {}
