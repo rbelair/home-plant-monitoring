@@ -94,7 +94,9 @@ FLOWERCARE_SENSOR_LIST="-s device_1=C4:7C:8D:XX:XX:XX -s device_2=C4:7C:8D:XX:XX
 PROMETHEUS_PORT=9090
 ```
 
-**Tip**: From my experience, the default refresh duration for `flowercare-exporter` of 2m0s drains the battery of this particular device very quickly (100% -> 0% in less than 1 week). When setting a refresh duration of 20m0s, it places way less strain on the battery and prolongs the battery life.
+**Tip**: From my experience, the default refresh duration for `flowercare-exporter` of 2m0s drains the battery of this particular device very quickly (100% -> 0% in less than 1 week). When setting a refresh duration of 20m0s, it places way less strain on the battery and prolongs the battery life. See below where I changed the refresh rate from the default to x10 (20m0s):
+
+![image info](./img/refresh_rate_battery.png)
 
 ## Extra Prometheus Step
 You have to set the private IP of the flowercare-exporter service for Prometheus to scrape. Unfortunately, the Prometheus config file doesn't allow environment variable expansion, so you have to set it manually in the config file on the Pi before running `docker-compose`.
