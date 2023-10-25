@@ -1,0 +1,39 @@
+groups:
+- name: plant-alerts
+  rules:
+  - alert: PhotoPeriodTooLow
+    expr: flowercare_brightness_lux < 100
+    for: 6h30m
+    labels:
+      severity: critical
+    annotations:
+      description: "{{ $labels.name }} has reported a darkness cycle of longer than 6 hours, which is not good during vegetative state. Plants can unintentionally flower with this dark period."
+  - alert: WaterLow
+    expr: flowercare_moisture_percent < 11
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      description: "{{ $labels.name }} has reported < 11% soil moisture for 5m."
+  - alert: TemperatureHigh
+    expr: flowercare_temperature_celsius > 28
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      description: "{{ $labels.name }} has reported > 28C for 5m. Plant is burning! Raise lamp height, turn hot steam to humidify only."
+  - alert: TemperatureLow
+    expr: flowercare_temperature_celsius < 21
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      description: "{{ $labels.name }} has reported < 21C for 5m. Plant is cold! Turn up lamp/hot steam humidifier."
+  - alert: SensorBatteryLow
+    expr: flowercare_battery_percent < 10
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      description: "{{ $labels.name }} has reported < 10% battery remaining. Time to replace the battery!"
+      

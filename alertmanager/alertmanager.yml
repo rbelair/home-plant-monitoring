@@ -1,0 +1,27 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: email
+
+receivers:
+- name: email
+  email_configs:
+  - to: primary-email
+    from: primary-email
+    smarthost: smtp.gmail.com:587
+    auth_username: ${GMAIL_USER}
+    auth_identity: ${GMAIL_USER}
+    auth_password: ${GMAIL_APP_PASS}
+    send_resolved: true
+  # - to: secondary-email
+  #   from: primary-email
+  #   smarthost: smtp.gmail.com:587
+  #   auth_username: ${GMAIL_USER2}
+  #   auth_identity: ${GMAIL_USER2}
+  #   auth_password: ${GMAIL_APP_PASS2}
+  #   send_resolved: true
