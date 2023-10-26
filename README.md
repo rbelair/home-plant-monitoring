@@ -44,6 +44,8 @@ sudo apt install gh
 9. Authenticate with Github.
 ```
 gh auth login
+```
+```
 ? What account do you want to log into?
 > GitHub.com
   GitHub Enterprise Server
@@ -57,11 +59,13 @@ gh auth login
   Paste an authentication token
 Hit Enter.
 ```
+
 10. Copy the 8 digit code displayed in the console. If hitting 'Enter' fails to open a browser, copy and paste the link from your terminal into a web browser on your development machine (not the raspberry Pi), and enter the 8 digit code, and click Authenticate.
 11. Verify GH access is correct by pulling the home-plant-monitoring repo:
 ```
 gh repo clone rbelair/home-plant-monitoring
-
+```
+```
 Cloning into 'home-plant-monitoring'...
 The authenticity of host 'github.com (140.82.112.4)' can't be established.
 ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -90,7 +94,7 @@ GRAFANA_PORT=3000
 FLOWERCARE_PORT=9294
 FLOWERCARE_REFRESH_DURATION=20m0s
 FLOWERCARE_STALE_DURATION=40m0s
-FLOWERCARE_SENSOR_LIST="-s device_1=C4:7C:8D:XX:XX:XX -s device_2=C4:7C:8D:XX:XX:XX -s device_3=C4:7C:8D:XX:XX:XX"
+FLOWERCARE_SENSOR_LIST=-s device_1=C4:7C:8D:XX:XX:XX -s device_2=C4:7C:8D:XX:XX:XX -s device_3=C4:7C:8D:XX:XX:XX
 PROMETHEUS_PORT=9090
 ```
 
